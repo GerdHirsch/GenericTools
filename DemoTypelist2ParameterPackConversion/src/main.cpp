@@ -11,8 +11,10 @@
 
 #include <GenericTools/Typelist2Parameterpack.h>
 #include <GenericTools/MakeTypelist.h>
+#include <GenericTools/Reverse.h>
 
 #include <iostream>
+
 using namespace std;
 
 void demoTypelist2Typepack();
@@ -66,6 +68,7 @@ void demoTypelist2Typepack(){
 	using typelistABC = MakeTypelist<A, B, C>;
 	using packABC_2 = TL2PP<typelistABC>;
 
+
 	cout << "--- Widget<ABC> widgetABC; // parameter pack A, B, C" << endl;
 	Widget<A, B, C> widgetABC;
 	cout << endl;
@@ -80,6 +83,19 @@ void demoTypelist2Typepack(){
 	cout << endl;
 	cout << endl;
 	cout << "-------------------" << endl;
+
+	cout << "--------- CBA Type ---" << endl;
+	using packCBA_1 = Reverse<A, B, C>;
+	using packCBA_2 = Reverse<packABC_2>;
+	cout << "--- Widget<packCBA_1> widgetCAB_1; // Reverse<A, B, C>" << endl;
+	Widget<packCBA_1> widgetCAB_1;
+	cout << endl;
+	cout << "--- Widget<packCBA_2> widgetCAB_2; // Reverse from MakeTypelist<A, B, C>" << endl;
+	Widget<packCBA_2> widgetCAB_2;
+
+	cout << "--- widgetABC_2.print();" << endl;
+	widgetCAB_2.print();
+	cout << endl;
 
 
 	cout << "=== end demoTypelist2Typepack" << endl;
