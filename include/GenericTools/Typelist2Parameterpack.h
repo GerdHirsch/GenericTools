@@ -3,6 +3,8 @@
  *
  *  Created on: 04.01.2017
  *      Author: Gerd
+ * this (TL2PP<..>) function belongs to Loki and should be defined
+ * in namespace Loki::TL
  */
 
 #ifndef INCLUDE_GENERICTOOLS_TYPELIST2PARAMETERPACK_H_
@@ -18,7 +20,11 @@ template<
 	class ...pack
 	>
 struct Typelist2Parameterpack;
-
+//=============================
+//Interface for type-function TL2PP:=Typelist2Parameterpack
+template<class List, class ...Pack>
+using TL2PP = typename Typelist2Parameterpack<List, Pack...>::type;
+//=============================
 // specialization for Typelist = 0 first call
 // using emptyTypelist = MakeTypelist<>::type;
 // using emptyPack = Typelist2Typepack<emptyTypelist>::type;
@@ -37,7 +43,16 @@ struct Typelist2Parameterpack<Loki::Typelist<T1, Loki::NullType>>
 {
 	using type = Parameterpack<T1>;
 };
-
+// specialization for Typelist = 1 second call below
+// using type = Typelist2Typepack<Tail, pack_>::type;
+template<
+	class T1,
+	class ...pack
+	>
+struct Typelist2Parameterpack<Loki::Typelist<T1, Loki::NullType>, Parameterpack<pack...>>
+{
+	using type = Parameterpack<pack..., T1>;
+};
 // specialization for Typelist > 1 first call
 // using pack = Typelist2Typepack<typelist>::type;
 template<
@@ -63,18 +78,5 @@ struct Typelist2Parameterpack<Loki::Typelist<T1, Tail>, Parameterpack<pack...>>
 	using type = typename Typelist2Parameterpack<Tail, pack_>::type;
 
 };
-// specialization for Typelist = 1 second call above
-// using type = Typelist2Typepack<Tail, pack_>::type;
-template<
-	class T1,
-	class ...pack
-	>
-struct Typelist2Parameterpack<Loki::Typelist<T1, Loki::NullType>, Parameterpack<pack...>>
-{
-	using type = Parameterpack<pack..., T1>;
-};
-
-template<class List, class ...Pack>
-using TL2PP = typename Typelist2Parameterpack<List, Pack...>::type;
 
 #endif // INCLUDE_GENERICTOOLS_TYPELIST2PARAMETERPACK_H_

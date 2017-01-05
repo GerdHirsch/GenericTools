@@ -8,6 +8,8 @@
 #ifndef INCLUDE_GENERICTOOLS_MAKETYPELIST_H_
 #define INCLUDE_GENERICTOOLS_MAKETYPELIST_H_
 
+#include "Parameterpack.h"
+
 #include <loki/Typelist.h>
 
 // empty typelist
@@ -15,6 +17,10 @@ template<class ...pack>
 struct MakeTypelist_{
 	typedef typename Loki::Typelist<Loki::NullType, Loki::NullType> type;
 };
+
+template<class ...pack> // enables usage with Parameterpack<..>
+struct MakeTypelist_<Parameterpack<pack...>> : MakeTypelist_<pack...>{};
+
 // more than one type
 template<class T, class ...List>
 struct MakeTypelist_<T, List...>{

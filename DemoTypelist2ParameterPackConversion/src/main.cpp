@@ -47,6 +47,7 @@ void demoTypelist2Typepack(){
 	cout << "--------- One Type ---" << endl;
 	using packA_1 = Parameterpack<A>;
 	using typelistA = MakeTypelist<A>;
+	using typelistA1 = MakeTypelist<packA_1>;
 	using packA_2 = TL2PP<typelistA>;
 
 	cout << "--- Widget<A> widgetA; // parameter pack A" << endl;
@@ -80,6 +81,7 @@ void demoTypelist2Typepack(){
 
 	cout << "--- widgetABC_2.print();" << endl;
 	widgetABC_2.print();
+
 	cout << endl;
 	cout << endl;
 	cout << "-------------------" << endl;
@@ -87,16 +89,18 @@ void demoTypelist2Typepack(){
 	cout << "--------- CBA Type ---" << endl;
 	using packCBA_1 = Reverse<A, B, C>;
 	using packCBA_2 = Reverse<packABC_2>;
-	cout << "--- Widget<packCBA_1> widgetCAB_1; // Reverse<A, B, C>" << endl;
-	Widget<packCBA_1> widgetCAB_1;
+	cout << "--- Widget<packCBA_1> widgetCBA_1; // Reverse<A, B, C>" << endl;
+	Widget<packCBA_1> widgetCBA_1;
 	cout << endl;
-	cout << "--- Widget<packCBA_2> widgetCAB_2; // Reverse from MakeTypelist<A, B, C>" << endl;
-	Widget<packCBA_2> widgetCAB_2;
+	cout << "--- Widget<packCBA_2> widgetCBA_2; // Reverse from MakeTypelist<A, B, C>" << endl;
+	Widget<packCBA_2> widgetCBA_2;
 
-	cout << "--- widgetABC_2.print();" << endl;
-	widgetCAB_2.print();
+	cout << "--- widgetCBA_2.print();" << endl;
+	widgetCBA_2.print();
 	cout << endl;
 
+	Widget<C, B, A> w(widgetCBA_2);
+	widgetCBA_2 = widgetCBA_1;
 
 	cout << "=== end demoTypelist2Typepack" << endl;
 }
