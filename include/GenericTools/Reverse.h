@@ -18,7 +18,7 @@ template<class ...Pack>
 struct Reverse_{
 	using typelist = MakeTypelist<Pack...>;
 	using reverseList = typename Loki::TL::Reverse<typelist>::Result;
-	using type = TL2PP<reverseList>;
+	using type = TList2TPack<reverseList>;
 };
 template<class ...Pack>
 struct Reverse_<Typepack<Pack...>> : Reverse_<Pack...>{};

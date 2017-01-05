@@ -29,7 +29,7 @@ void demoTypelist2Typepack(){
 	cout << "--------- Empty ---" << endl;
 	using packEmpty_1 = Typepack<>;
 	using typelistEmpty = MakeTypelist<>;
-	using packEmpty_2 = TL2PP<typelistEmpty>;
+	using packEmpty_2 = TList2TPack<typelistEmpty>;
 
 	cout << "--- Widget<> widgetEmpty; // empty parameter pack" << endl;
 	Widget<> widgetEmpty;
@@ -48,7 +48,7 @@ void demoTypelist2Typepack(){
 	using packA_1 = Typepack<A>;
 	using typelistA = MakeTypelist<A>;
 //	using typelistA1 = MakeTypelist<packA_1>;
-	using packA_2 = TL2PP<typelistA>;
+	using packA_2 = TList2TPack<typelistA>;
 
 	cout << "--- Widget<A> widgetA; // parameter pack A" << endl;
 	Widget<A> widgetA;
@@ -67,7 +67,7 @@ void demoTypelist2Typepack(){
 	cout << "--------- ABC Type ---" << endl;
 	using packABC_1 = Typepack<A, B, C>;
 	using typelistABC = MakeTypelist<A, B, C>;
-	using packABC_2 = TL2PP<typelistABC>;
+	using packABC_2 = TList2TPack<typelistABC>;
 
 
 	cout << "--- Widget<ABC> widgetABC; // parameter pack A, B, C" << endl;

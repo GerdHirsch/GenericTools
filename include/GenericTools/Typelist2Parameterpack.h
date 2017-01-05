@@ -19,17 +19,17 @@ template<
 	class list,
 	class ...pack
 	>
-struct Typelist2Parameterpack;
+struct Typelist2Typepack;
 //=============================
 //Interface for type-function TL2PP:=Typelist2Parameterpack
 template<class List, class ...Pack>
-using TL2PP = typename Typelist2Parameterpack<List, Pack...>::type;
+using TList2TPack = typename Typelist2Typepack<List, Pack...>::type;
 //=============================
 // specialization for Typelist = 0 first call
 // using emptyTypelist = MakeTypelist<>::type;
 // using emptyPack = Typelist2Typepack<emptyTypelist>::type;
 template<>
-struct Typelist2Parameterpack<Loki::Typelist<Loki::NullType, Loki::NullType>>
+struct Typelist2Typepack<Loki::Typelist<Loki::NullType, Loki::NullType>>
 {
 	using type = Typepack<>;
 };
@@ -39,7 +39,7 @@ struct Typelist2Parameterpack<Loki::Typelist<Loki::NullType, Loki::NullType>>
 template<
 	class T1
 	>
-struct Typelist2Parameterpack<Loki::Typelist<T1, Loki::NullType>>
+struct Typelist2Typepack<Loki::Typelist<T1, Loki::NullType>>
 {
 	using type = Typepack<T1>;
 };
@@ -49,7 +49,7 @@ template<
 	class T1,
 	class ...pack
 	>
-struct Typelist2Parameterpack<Loki::Typelist<T1, Loki::NullType>, Typepack<pack...>>
+struct Typelist2Typepack<Loki::Typelist<T1, Loki::NullType>, Typepack<pack...>>
 {
 	using type = Typepack<pack..., T1>;
 };
@@ -59,10 +59,10 @@ template<
 	class T1,
 	class Tail
 	>
-struct Typelist2Parameterpack<Loki::Typelist<T1, Tail>>
+struct Typelist2Typepack<Loki::Typelist<T1, Tail>>
 {
 	using pack_ = Typepack<T1>;
-	using type = typename Typelist2Parameterpack<Tail, pack_>::type;
+	using type = typename Typelist2Typepack<Tail, pack_>::type;
 
 };
 // specialization for Typelist > 1 second call above
@@ -72,10 +72,10 @@ template<
 	class Tail,
 	class ...pack
 	>
-struct Typelist2Parameterpack<Loki::Typelist<T1, Tail>, Typepack<pack...>>
+struct Typelist2Typepack<Loki::Typelist<T1, Tail>, Typepack<pack...>>
 {
 	using pack_ = Typepack<pack..., T1>;
-	using type = typename Typelist2Parameterpack<Tail, pack_>::type;
+	using type = typename Typelist2Typepack<Tail, pack_>::type;
 
 };
 
