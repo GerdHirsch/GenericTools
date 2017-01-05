@@ -46,7 +46,7 @@ struct Widget<T>{
 };
 // standard implementation to enable Parameterpack
 template<class ...pack>
-struct Widget<Parameterpack<pack...>> : Widget<pack...>{};
+struct Widget<Typepack<pack...>> : Widget<pack...>{};
 
 
 

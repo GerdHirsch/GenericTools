@@ -8,7 +8,15 @@
 #ifndef INCLUDE_GENERICTOOLS_PARAMETERPACK_H_
 #define INCLUDE_GENERICTOOLS_PARAMETERPACK_H_
 
-template<class ...pack>
-struct Parameterpack;
+/**
+ * No Definition is needed, it's just to specialize a template.
+ * Primary:
+ * template<class ...pack> class Widget{ Definition;};
+ * Specialization:
+ * template<class ...pack> class Widget<Parameterpack<pack...>
+ * : Widget<pack...>{}; // Delegation by inheritance
+ */
+template<class ...>
+struct Typepack;
 
 #endif /* INCLUDE_GENERICTOOLS_PARAMETERPACK_H_ */

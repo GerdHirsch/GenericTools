@@ -19,7 +19,7 @@ struct MakeTypelist_{
 };
 
 template<class ...pack> // enables usage with Parameterpack<..>
-struct MakeTypelist_<Parameterpack<pack...>> : MakeTypelist_<pack...>{};
+struct MakeTypelist_<Typepack<pack...>> : MakeTypelist_<pack...>{};
 
 // more than one type
 template<class T, class ...List>

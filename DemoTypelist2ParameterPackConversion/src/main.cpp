@@ -27,7 +27,7 @@ void demoTypelist2Typepack(){
 	cout << "=== demoTypelist2Typepack" << endl;
 
 	cout << "--------- Empty ---" << endl;
-	using packEmpty_1 = Parameterpack<>;
+	using packEmpty_1 = Typepack<>;
 	using typelistEmpty = MakeTypelist<>;
 	using packEmpty_2 = TL2PP<typelistEmpty>;
 
@@ -45,9 +45,9 @@ void demoTypelist2Typepack(){
 	cout << "-------------------" << endl;
 
 	cout << "--------- One Type ---" << endl;
-	using packA_1 = Parameterpack<A>;
+	using packA_1 = Typepack<A>;
 	using typelistA = MakeTypelist<A>;
-	using typelistA1 = MakeTypelist<packA_1>;
+//	using typelistA1 = MakeTypelist<packA_1>;
 	using packA_2 = TL2PP<typelistA>;
 
 	cout << "--- Widget<A> widgetA; // parameter pack A" << endl;
@@ -65,7 +65,7 @@ void demoTypelist2Typepack(){
 	cout << "-------------------" << endl;
 
 	cout << "--------- ABC Type ---" << endl;
-	using packABC_1 = Parameterpack<A, B, C>;
+	using packABC_1 = Typepack<A, B, C>;
 	using typelistABC = MakeTypelist<A, B, C>;
 	using packABC_2 = TL2PP<typelistABC>;
 

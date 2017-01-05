@@ -31,7 +31,7 @@ using TL2PP = typename Typelist2Parameterpack<List, Pack...>::type;
 template<>
 struct Typelist2Parameterpack<Loki::Typelist<Loki::NullType, Loki::NullType>>
 {
-	using type = Parameterpack<>;
+	using type = Typepack<>;
 };
 // specialization for Typelist = 1 first call
 // using typelist = MakeTypelist<A>::type;
@@ -41,7 +41,7 @@ template<
 	>
 struct Typelist2Parameterpack<Loki::Typelist<T1, Loki::NullType>>
 {
-	using type = Parameterpack<T1>;
+	using type = Typepack<T1>;
 };
 // specialization for Typelist = 1 second call below
 // using type = Typelist2Typepack<Tail, pack_>::type;
@@ -49,9 +49,9 @@ template<
 	class T1,
 	class ...pack
 	>
-struct Typelist2Parameterpack<Loki::Typelist<T1, Loki::NullType>, Parameterpack<pack...>>
+struct Typelist2Parameterpack<Loki::Typelist<T1, Loki::NullType>, Typepack<pack...>>
 {
-	using type = Parameterpack<pack..., T1>;
+	using type = Typepack<pack..., T1>;
 };
 // specialization for Typelist > 1 first call
 // using pack = Typelist2Typepack<typelist>::type;
@@ -61,7 +61,7 @@ template<
 	>
 struct Typelist2Parameterpack<Loki::Typelist<T1, Tail>>
 {
-	using pack_ = Parameterpack<T1>;
+	using pack_ = Typepack<T1>;
 	using type = typename Typelist2Parameterpack<Tail, pack_>::type;
 
 };
@@ -72,9 +72,9 @@ template<
 	class Tail,
 	class ...pack
 	>
-struct Typelist2Parameterpack<Loki::Typelist<T1, Tail>, Parameterpack<pack...>>
+struct Typelist2Parameterpack<Loki::Typelist<T1, Tail>, Typepack<pack...>>
 {
-	using pack_ = Parameterpack<pack..., T1>;
+	using pack_ = Typepack<pack..., T1>;
 	using type = typename Typelist2Parameterpack<Tail, pack_>::type;
 
 };

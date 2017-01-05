@@ -21,7 +21,7 @@ struct Reverse_{
 	using type = TL2PP<reverseList>;
 };
 template<class ...Pack>
-struct Reverse_<Parameterpack<Pack...>> : Reverse_<Pack...>{};
+struct Reverse_<Typepack<Pack...>> : Reverse_<Pack...>{};
 
 template<class ...pack>
 using Reverse = typename Reverse_<pack...>::type;
