@@ -27,7 +27,7 @@ struct CreateWidget;
 template<class ...pack>
 using Widget = typename CreateWidget<pack...>::type;
 
-
+//=====================================================================
 template<class ...pack>
 struct WidgetImpl{
 	WidgetImpl(){
@@ -61,7 +61,10 @@ struct WidgetImpl<T>{
 		t.print();
 	}
 };
-
+//=====================================================================
+/**
+ * type-function create widget
+ */
 template<class ...pack>
 struct CreateWidget{
 	using type = WidgetImpl<pack...>;
