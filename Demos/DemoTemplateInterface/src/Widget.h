@@ -19,6 +19,14 @@
 //forward declaration
 template<class ...pack>
 struct WidgetImpl;
+template<class ...pack>
+struct CreateWidget;
+/**
+ * template interface
+ */
+template<class ...pack>
+using Widget = typename CreateWidget<pack...>::type;
+
 
 template<class ...pack>
 struct WidgetImpl{
@@ -62,7 +70,5 @@ struct CreateWidget{
 template<class ...pack> // delegation by inheritance
 struct CreateWidget<Typepack<pack...>> : CreateWidget<pack...>{};
 
-template<class ...pack>
-using Widget = typename CreateWidget<pack...>::type;
 
 #endif /* WIDGET_H_ */
