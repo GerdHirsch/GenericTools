@@ -10,11 +10,12 @@
 
 
 #include <GenericTools/Parameterpack.h>
+
 #include <iostream>
 
 template<class ...pack>
-struct Widget{
-	Widget(){
+struct WidgetImpl{
+	WidgetImpl(){
 		std::cout << "Widget<class ...pack>::Widget() // empty pack" << std::endl;
 	}
 	void print(){
@@ -23,10 +24,10 @@ struct Widget{
 };
 
 template<class T, class ...pack>
-struct Widget<T, pack...> : Widget<pack...>{
+struct WidgetImpl<T, pack...> : WidgetImpl<pack...>{
 	T t;
-	using base_type = Widget<pack...>;
-	Widget(){
+	using base_type = WidgetImpl<pack...>;
+	WidgetImpl(){
 		std::cout << "Widget<T, pack...>::Widget() // Two ore more Types" << std::endl;
 	}
 	void print(){
@@ -35,9 +36,9 @@ struct Widget<T, pack...> : Widget<pack...>{
 	}
 };
 template<class T>
-struct Widget<T>{
+struct WidgetImpl<T>{
 	T t;
-	Widget(){
+	WidgetImpl(){
 		std::cout << "Widget<T>::Widget() // one Type" << std::endl;
 	}
 	void print(){
@@ -46,8 +47,6 @@ struct Widget<T>{
 };
 // standard implementation to enable Parameterpack
 template<class ...pack>
-struct Widget<Typepack<pack...>> : Widget<pack...>{};
-
-
+struct WidgetImpl<Typepack<pack...>> : WidgetImpl<pack...>{};
 
 #endif /* WIDGET_H_ */

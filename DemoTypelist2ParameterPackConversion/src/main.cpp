@@ -12,16 +12,42 @@
 #include <GenericTools/Typelist2Parameterpack.h>
 #include <GenericTools/MakeTypelist.h>
 #include <GenericTools/Reverse.h>
-
 #include <iostream>
 
 using namespace std;
 
 void demoTypelist2Typepack();
+void demoTemplateInterface();
 
 int main(){
 	cout << "DemoTypelist" << endl;
 	demoTypelist2Typepack();
+}
+void demoTemplateInterface(){
+	using pack = Typepack<A, B, C>;
+	{
+		using WidgetType1 = CreateWidget<pack>;
+		using WidgetType2 = CreateWidget<A, B, C>;
+
+		WidgetType1 w1;
+		WidgetType2 w2(w1);
+		WidgetType1 w11(w2);
+
+		w11 = w1;
+		w2 = w11;
+		w1 = w2;
+	}
+	{
+		WidgetImpl<pack> w1;
+		WidgetImpl<A, B, C> w2(w1);
+		// error: no matching function for call to 'Widget<Typepack<A, B, C> >::Widget(Widget<A, B, C>&)'
+//		Widget<pack> w11(w2); // even with using base_type::Widget;
+		w2 = w1;
+		// error: no matching function for call to 'Widget<Typepack<A, B, C> >::Widget(Widget<A, B, C>&)'
+		w1 = w2; // but OK with: using base_type::operator=;
+
+	}
+
 }
 void demoTypelist2Typepack(){
 	cout << "=== demoTypelist2Typepack" << endl;
@@ -32,13 +58,13 @@ void demoTypelist2Typepack(){
 	using packEmpty_2 = TList2TPack<typelistEmpty>;
 
 	cout << "--- Widget<> widgetEmpty; // empty parameter pack" << endl;
-	Widget<> widgetEmpty;
+	WidgetImpl<> widgetEmpty;
 	cout << endl;
 	cout << "--- Widget<packEmpty_1> widgetEmpty_1; // empty Parameterpack<>" << endl;
-	Widget<packEmpty_1> widgetEmpty_1;
+	WidgetImpl<packEmpty_1> widgetEmpty_1;
 	cout << endl;
 	cout << "--- Widget<packEmpty_2> widgetEmpty_2; // empty Parameterpack<> from MakeTypelist<>" << endl;
-	Widget<packEmpty_2> widgetEmpty_2;
+	WidgetImpl<packEmpty_2> widgetEmpty_2;
 	cout << "--- widgetEmpty_2.print();" << endl;
 	widgetEmpty_2.print();
 	cout << endl;
@@ -51,13 +77,13 @@ void demoTypelist2Typepack(){
 	using packA_2 = TList2TPack<typelistA>;
 
 	cout << "--- Widget<A> widgetA; // parameter pack A" << endl;
-	Widget<A> widgetA;
+	WidgetImpl<A> widgetA;
 	cout << endl;
 	cout << "--- Widget<packA_1> widgetA_1; // Parameterpack<A>" << endl;
-	Widget<packA_1> widgetA_1;
+	WidgetImpl<packA_1> widgetA_1;
 	cout << endl;
 	cout << "--- Widget<packA_2> widgetA_2; // Parameterpack<A> from MakeTypelist<A>" << endl;
-	Widget<packA_2> widgetA_2;
+	WidgetImpl<packA_2> widgetA_2;
 
 	cout << "--- widgetA_2.print();" << endl;
 	widgetA_2.print();
@@ -71,13 +97,13 @@ void demoTypelist2Typepack(){
 
 
 	cout << "--- Widget<ABC> widgetABC; // parameter pack A, B, C" << endl;
-	Widget<A, B, C> widgetABC;
+	WidgetImpl<A, B, C> widgetABC;
 	cout << endl;
 	cout << "--- Widget<packABC_1> widgetABC_1; // Parameterpack<A, B, C>" << endl;
-	Widget<packABC_1> widgetABC_1;
+	WidgetImpl<packABC_1> widgetABC_1;
 	cout << endl;
 	cout << "--- Widget<packABC_2> widgetABC_2; // Parameterpack<A, B, C> from MakeTypelist<A, B, C>" << endl;
-	Widget<packABC_2> widgetABC_2;
+	WidgetImpl<packABC_2> widgetABC_2;
 
 	cout << "--- widgetABC_2.print();" << endl;
 	widgetABC_2.print();
@@ -90,17 +116,19 @@ void demoTypelist2Typepack(){
 	using packCBA_1 = Reverse<A, B, C>;
 	using packCBA_2 = Reverse<packABC_2>;
 	cout << "--- Widget<packCBA_1> widgetCBA_1; // Reverse<A, B, C>" << endl;
-	Widget<packCBA_1> widgetCBA_1;
+	WidgetImpl<packCBA_1> widgetCBA_1;
 	cout << endl;
 	cout << "--- Widget<packCBA_2> widgetCBA_2; // Reverse from MakeTypelist<A, B, C>" << endl;
-	Widget<packCBA_2> widgetCBA_2;
+	WidgetImpl<packCBA_2> widgetCBA_2;
 
 	cout << "--- widgetCBA_2.print();" << endl;
 	widgetCBA_2.print();
 	cout << endl;
 
-	Widget<C, B, A> w(widgetCBA_2);
+	WidgetImpl<C, B, A> w(widgetCBA_2);
 	widgetCBA_2 = widgetCBA_1;
+
+	//Widget<packCBA_1> w2(w);
 
 	cout << "=== end demoTypelist2Typepack" << endl;
 }

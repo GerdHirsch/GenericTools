@@ -15,15 +15,18 @@
 
 
 template<class ...Pack>
-struct Reverse_{
+struct ReverseImpl{
 	using typelist = MakeTypelist<Pack...>;
 	using reverseList = typename Loki::TL::Reverse<typelist>::Result;
 	using type = TList2TPack<reverseList>;
 };
 template<class ...Pack>
-struct Reverse_<Typepack<Pack...>> : Reverse_<Pack...>{};
+struct ReverseImpl<Typepack<Pack...>> : ReverseImpl<Pack...>{};
 
+/**
+ * Reverse<..> is the interface to the type-function
+ */
 template<class ...pack>
-using Reverse = typename Reverse_<pack...>::type;
+using Reverse = typename ReverseImpl<pack...>::type;
 
 #endif /* REVERSE_H_ */
