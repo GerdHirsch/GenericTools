@@ -14,8 +14,8 @@
 #include <iostream>
 
 template<class ...pack>
-struct WidgetImpl{
-	WidgetImpl(){
+struct Widget{
+	Widget(){
 		std::cout << "Widget<class ...pack>::Widget() // empty pack" << std::endl;
 	}
 	void print(){
@@ -24,10 +24,10 @@ struct WidgetImpl{
 };
 
 template<class T, class ...pack>
-struct WidgetImpl<T, pack...> : WidgetImpl<pack...>{
+struct Widget<T, pack...> : Widget<pack...>{
 	T t;
-	using base_type = WidgetImpl<pack...>;
-	WidgetImpl(){
+	using base_type = Widget<pack...>;
+	Widget(){
 		std::cout << "Widget<T, pack...>::Widget() // Two ore more Types" << std::endl;
 	}
 	void print(){
@@ -36,17 +36,17 @@ struct WidgetImpl<T, pack...> : WidgetImpl<pack...>{
 	}
 };
 template<class T>
-struct WidgetImpl<T>{
+struct Widget<T>{
 	T t;
-	WidgetImpl(){
+	Widget(){
 		std::cout << "Widget<T>::Widget() // one Type" << std::endl;
 	}
 	void print(){
 		t.print();
 	}
 };
-// standard implementation to enable Parameterpack
+// standard implementation to enable Typepack<..>
 template<class ...pack>
-struct WidgetImpl<Typepack<pack...>> : WidgetImpl<pack...>{};
+struct Widget<Typepack<pack...>> : Widget<pack...>{};
 
 #endif /* WIDGET_H_ */
