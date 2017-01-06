@@ -23,32 +23,7 @@ int main(){
 	cout << "DemoTypelist" << endl;
 	demoTypelist2Typepack();
 }
-void demoTemplateInterface(){
-	using pack = Typepack<A, B, C>;
-	{
-		using WidgetType1 = CreateWidget<pack>;
-		using WidgetType2 = CreateWidget<A, B, C>;
 
-		WidgetType1 w1;
-		WidgetType2 w2(w1);
-		WidgetType1 w11(w2);
-
-		w11 = w1;
-		w2 = w11;
-		w1 = w2;
-	}
-	{
-		WidgetImpl<pack> w1;
-		WidgetImpl<A, B, C> w2(w1);
-		// error: no matching function for call to 'Widget<Typepack<A, B, C> >::Widget(Widget<A, B, C>&)'
-//		Widget<pack> w11(w2); // even with using base_type::Widget;
-		w2 = w1;
-		// error: no matching function for call to 'Widget<Typepack<A, B, C> >::Widget(Widget<A, B, C>&)'
-		w1 = w2; // but OK with: using base_type::operator=;
-
-	}
-
-}
 void demoTypelist2Typepack(){
 	cout << "=== demoTypelist2Typepack" << endl;
 
